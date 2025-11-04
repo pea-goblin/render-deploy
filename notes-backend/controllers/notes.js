@@ -1,36 +1,32 @@
 const notesRouter = require("express").Router();
 const Note = require('../models/note');
 
-notesRouter.get('/', (req, res) => {
-    Note.find({}).then(n => {
-        res.json(n);
-    })
+notesRouter.get('/', async (req, res) => {
+    const notes = await Note.find({});
+    res.json(notes);
+
 });
 
-notesRouter.get("/:id", (req, res, next) => {
+notesRouter.get("/:id", async (req, res) => {
     const id = req.params.id;
-    Note.findById(id)
-        .then(note => {
-            if (note) {
-                res.json(note);
-            } else {
-                res.status(404).end();
-            }
-        })
-        .catch(e => next(e));
+
+    const resultNote = await Note.findById(id);
+    if (resultNote) {
+        return res.json(resultNote);
+    } else {
+        return res.status(404).end();
+    }
 });
 
-notesRouter.post("/", (req, res, next) => {
+notesRouter.post("/", async (req, res, next) => {
     const body = req.body;
     const note = new Note({
         content: body.content,
         important: body.important || false
     });
 
-    note.save().then(n => {
-        res.json(n);
-    })
-        .catch(e => next(e));
+    const noteSaved = await note.save();
+    return res.status(201).json(noteSaved);
 });
 
 notesRouter.put("/:id", (req, res, next) => {
@@ -50,14 +46,10 @@ notesRouter.put("/:id", (req, res, next) => {
         })
 });
 
-notesRouter.delete("/:id", (req, res, next) => {
+notesRouter.delete("/:id", async (req, res, next) => {
     const id = req.params.id;
-
-    Note.findByIdAndDelete(id)
-        .then(r => {
-            res.status(204).end();
-        })
-        .catch(e => next(e));
+    await Note.findByIdAndDelete(id);
+    return res.status(204).end();
 });
 
 module.exports = notesRouter;
