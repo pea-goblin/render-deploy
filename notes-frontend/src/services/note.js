@@ -4,12 +4,8 @@ const baseUrl = "/api/notes"
 
 const getAll = () => {
     const req = axios.get(baseUrl);
-    const nonExisting = {
-        id: 1000,
-        content: "Empty note",
-        important: true
-    }
-    return req.then(r => r.data.concat(nonExisting));
+
+    return req.then(r => r.data);
 }
 
 const create = newObject => {

@@ -30,6 +30,8 @@ function App() {
     noteService
       .update(id, changedNote)
       .then(returnedNote => {
+        console.log(">>", returnedNote);
+
         setNotes(notes.map(n => n.id === id ? returnedNote : n));
       })
       .catch(error => {
@@ -59,6 +61,12 @@ function App() {
         setNotes(notes.concat(returnedNote))
         setNewNote("");
       })
+      .catch(e => {
+        setErrorMessage(`${e.response.data.error}`);
+        setTimeout(() => {
+          setErrorMessage(null);
+        }, 3000);
+      });
   };
 
   return (
