@@ -1,5 +1,6 @@
 POST http://localhost:3001/api/notes
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlN1cGVydXNlciIsImlkIjoiNjkwYjE5OWY3OTljM2E1ZDkyOGQzZjY1IiwiaWF0IjoxNzYyMzQ4NjAxLCJleHAiOjE3NjIzNDg2NjF9.a5mcOPzmLKxfS6M6OUm-AfJwDafGFyrdfFTZ_dr_fh8
 
 {
     "content": "first note important",
