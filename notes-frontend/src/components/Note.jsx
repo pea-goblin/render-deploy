@@ -1,11 +1,12 @@
 const Note = ({ note, toggleImportantOf }) => {
 
     const label = note.important
-        ? "make unimpotant"
-        : "make impotant";
+        ? "make not important"
+        : "make important";
     return (
         <li className="note">
-            {note.id} {note.content}
+            {note.id}
+            {note.content}
             <button
                 onClick={() => toggleImportantOf(note.id)}>{label}</button>
         </li>
